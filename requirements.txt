@@ -1,4 +1,4 @@
 flask
 flask_restful
 gunicorn
-https://s3.amazonaws.com/pytorch/whl/cu75/torch-0.1.6.post22-cp27-none-linux_x86_64.whl
+https://download.pytorch.org/whl/cpu/torch-1.1.0-cp37-cp37m-linux_x86_64.whl
