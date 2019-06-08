@@ -61,9 +61,9 @@ if [ ! -d $TOOLS_PATH/wikiextractor ]; then
 fi
 
 # Download Model
-if true then
-    cd ..
-    echo "Cloning Model from GitHub repository..."
-    wget -c https://dl.fbaipublicfiles.com/XLM/mlm_tlm_xnli15_1024.pth
-    echo "yes !"
-fi
+
+cd ..
+echo "Cloning Model from GitHub repository..."
+wget -c https://dl.fbaipublicfiles.com/XLM/mlm_tlm_xnli15_1024.pth
+echo "yes !"
+
