@@ -1,7 +1,6 @@
 from os import path, getcwd
 import torch
 import time
-from six.moves import urllib
 
 from flask import Flask, request
 from flask_restful import Resource, Api
@@ -14,11 +13,6 @@ from torch.nn.modules.distance import CosineSimilarity
 import torch.utils.model_zoo
 #import fastBPE
 import numpy as np
-
-import requests
-import io
-
-from initialize import Reloaded
     
 app = Flask(__name__)
 api = Api(app)
