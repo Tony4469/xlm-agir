@@ -1,4 +1,5 @@
-from os import path, getcwd
+from os import  getcwd
+import os
 import torch
 import time
 
@@ -46,15 +47,32 @@ class XLM(Resource):
 def initialize_model():
     """
     """
+    print('launching model')
+    print(getcwd())
+    print("Path at terminal when executing this file")
+    print(os.getcwd() + "\n")
     
-    print('downloading model')
+    print("This file path, relative to os.getcwd()")
+    print(__file__ + "\n")
+    
+    print("This file full path (following symlinks)")
+    full_path = os.path.realpath(__file__)
+    print(full_path + "\n")
+    
+    print("This file directory and name")
+    path, filename = os.path.split(full_path)
+    print(path + ' --> ' + filename + "\n")
+    
+    print("This file directory only")
+    print(os.path.dirname(full_path))
+
 #     url = "https://dl.fbaipublicfiles.com/XLM/mlm_tlm_xnli15_1024.pth"
  #    urllib.request.urlretrieve(url, "mlm_tlm_xnli15_1024.pth")
 
     chemin = getcwd()
-    curPath = chemin if "xlm" in chemin else (path.join(getcwd(), 'xlm'))
+    curPath = chemin if "xlm" in chemin else (os.path.join(getcwd(), 'xlm'))
 
-    model_path = path.normpath(path.join(getcwd(), './mlm_tlm_xnli15_1024.pth') )
+    model_path = os.path.normpath(os.path.join(getcwd(), './mlm_tlm_xnli15_1024.pth') )
     reloaded = torch.load(model_path)
     
 #     print('allez le model')
