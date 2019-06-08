@@ -123,7 +123,7 @@ def calculate_similarity(sentences, bpe, model, params, dico):
 
 
 
-#model, params, dico, bpe = initialize_model()
+model, params, dico, bpe = initialize_model()
 
 print('initialized')
 
