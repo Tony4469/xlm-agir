@@ -2,7 +2,6 @@ from os import path, getcwd
 import torch
 import time
 from six.moves import urllib
-import requests
 
 from flask import Flask, request
 from flask_restful import Resource, Api
