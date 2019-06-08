@@ -11,7 +11,7 @@ from src.data.dictionary import Dictionary, BOS_WORD, EOS_WORD, PAD_WORD, UNK_WO
 from src.model.transformer import TransformerModel
 
 from torch.nn.modules.distance import CosineSimilarity
-import fastBPE
+#import fastBPE
 import numpy as np
 
 app = Flask(__name__)
@@ -75,9 +75,10 @@ def initialize_model():
     model = TransformerModel(params, dico, True, True)
     model.load_state_dict(reloaded['model'])
     
-    bpe = fastBPE.fastBPE(
-            path.normpath(path.join(curPath, "./codes_xnli_15") ),
-            path.normpath(path.join(curPath, "./vocab_xnli_15") )  )
+    bpe = 0
+#    fastBPE.fastBPE(
+#            path.normpath(path.join(curPath, "./codes_xnli_15") ),
+#            path.normpath(path.join(curPath, "./vocab_xnli_15") )  )
     print('fin lecture')
     
     return model, params, dico, bpe
