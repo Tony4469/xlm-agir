@@ -11,9 +11,13 @@ from src.data.dictionary import Dictionary, BOS_WORD, EOS_WORD, PAD_WORD, UNK_WO
 from src.model.transformer import TransformerModel
 
 from torch.nn.modules.distance import CosineSimilarity
+import torch.utils.model_zoo
 #import fastBPE
 import numpy as np
 
+import requests
+import io
+    
 app = Flask(__name__)
 api = Api(app)
 
@@ -49,14 +53,19 @@ def initialize_model():
     
     print('downloading model')
     url = "https://dl.fbaipublicfiles.com/XLM/mlm_tlm_xnli15_1024.pth"
-    urllib.request.urlretrieve(url, "mlm_tlm_xnli15_1024.pth")
-    print('file downloaded')
+#    urllib.request.urlretrieve(url, "mlm_tlm_xnli15_1024.pth")
 
     chemin = getcwd()
     curPath = chemin if "xlm" in chemin else (path.join(getcwd(), 'xlm'))
 
-    model_path = path.normpath(path.join(curPath, './mlm_tlm_xnli15_1024.pth') )
-    reloaded = torch.load(model_path)
+#    model_path = path.normpath(path.join(curPath, './mlm_tlm_xnli15_1024.pth') )
+    
+    response = requests.get(url)
+    print('response downloaded')
+    f = io.BytesIO(response.content)
+    reloaded = torch.load(f)
+    print('file downloaded')
+    
     params = AttrDict(reloaded['params'])
     print("Supported languages: %s" % ", ".join(params.lang2id.keys()))
     
