@@ -47,10 +47,10 @@ def initialize_model():
     """
     """
     
-    print('downloading model')
-    url = "https://dl.fbaipublicfiles.com/XLM/mlm_tlm_xnli15_1024.pth"
-    urllib.request.urlretrieve(url, "mlm_tlm_xnli15_1024.pth")
-    print('file downloaded')
+#    print('downloading model')
+#    url = "https://dl.fbaipublicfiles.com/XLM/mlm_tlm_xnli15_1024.pth"
+#    urllib.request.urlretrieve(url, "mlm_tlm_xnli15_1024.pth")
+#    print('file downloaded')
     
     chemin = getcwd()
     curPath = chemin if "xlm" in chemin else (path.join(getcwd(), 'xlm'))
