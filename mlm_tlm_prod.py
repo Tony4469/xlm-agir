@@ -54,7 +54,7 @@ def initialize_model():
     chemin = getcwd()
     curPath = chemin if "xlm" in chemin else (path.join(getcwd(), 'xlm'))
 
-    model_path = path.normpath(path.join(curPath, './mlm_tlm_xnli15_1024.pth') )
+    model_path = path.normpath(path.join(getcwd(), './mlm_tlm_xnli15_1024.pth') )
     reloaded = torch.load(model_path)
     
 #     print('allez le model')
