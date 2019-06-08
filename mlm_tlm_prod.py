@@ -17,7 +17,12 @@ from torch.nn.modules.distance import CosineSimilarity
 import torch.utils.model_zoo
 #import fastBPE
 import numpy as np
-    
+
+import sys
+import urllib
+import threading
+from queue import Queue
+
 app = Flask(__name__)
 api = Api(app)
 
@@ -139,8 +144,38 @@ def calculate_similarity(sentences, bpe, model, params, dico):
     return cm.forward(tensor[len_sent[0]-1,0], tensor[len_sent[1]-1,1]) 
 
 
+class DownloadThread(threading.Thread):
+    def __init__(self, queue, destfolder):
+        super(DownloadThread, self).__init__()
+        self.queue = queue
+        self.destfolder = destfolder
+        self.daemon = True
 
-model, params, dico, bpe = initialize_model()
+    def run(self):
+        print("running")
+        while True:
+            url = self.queue.get()
+            self.download_url(url)
+            self.queue.task_done()
+
+    def download_url(self, url):
+        dest = os.path.normpath(os.path.join(getcwd(), './mlm_tlm_xnli15_1024.pth') )
+        print("[%s] Downloading %s -> %s"%(self.ident, url, dest))
+        urllib.request.urlretrieve(url, "mlm_tlm_xnli15_1024.pth")
+
+print("starting queue")
+queue = Queue()
+queue.put("https://dl.fbaipublicfiles.com/XLM/mlm_tlm_xnli15_1024.pth")
+
+print("dwnld queue")
+t = DownloadThread(queue, "/app")
+t.start()
+
+print("join queue")
+queue.join()
+    
+print("end queue")
+#model, params, dico, bpe = initialize_model()
 
 print('initialized')
 
