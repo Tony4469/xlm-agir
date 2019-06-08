@@ -48,29 +48,22 @@ def initialize_model():
     """
     """
     print('launching model')
-    print(getcwd())
-    print("Path at terminal when executing this file")
-    print(os.getcwd() + "\n")
     
-    print("This file path, relative to os.getcwd()")
-    print(__file__ + "\n")
+    chemin = getcwd()
+    curPath = chemin if "xlm" in chemin else (os.path.join(getcwd(), 'xlm'))
     
-    print("This file full path (following symlinks)")
-    full_path = os.path.realpath(__file__)
-    print(full_path + "\n")
+    files = []
+    # r=root, d=directories, f = files
+    for r, d, f in os.walk(chemin):
+        for file in f:
+            files.append(os.path.join(r, file))
     
-    print("This file directory and name")
-    path, filename = os.path.split(full_path)
-    print(path + ' --> ' + filename + "\n")
-    
-    print("This file directory only")
-    print(os.path.dirname(full_path))
+    for f in files:
+        print(f)
 
 #     url = "https://dl.fbaipublicfiles.com/XLM/mlm_tlm_xnli15_1024.pth"
  #    urllib.request.urlretrieve(url, "mlm_tlm_xnli15_1024.pth")
 
-    chemin = getcwd()
-    curPath = chemin if "xlm" in chemin else (os.path.join(getcwd(), 'xlm'))
 
     model_path = os.path.normpath(os.path.join(getcwd(), './mlm_tlm_xnli15_1024.pth') )
     reloaded = torch.load(model_path)
