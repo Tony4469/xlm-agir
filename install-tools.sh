@@ -69,7 +69,7 @@ ls
 pwd
 echo "yes !"
 
-pythin mlm_tlm_prod.py
+python mlm_tlm_prod.py
 
 echo "cool !"
 
