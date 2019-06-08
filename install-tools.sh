@@ -66,6 +66,5 @@ cd ..
 echo "Cloning Model from GitHub repository..."
 wget -c https://dl.fbaipublicfiles.com/XLM/mlm_tlm_xnli15_1024.pth
 ls
-find / -name "mlm_tlm_xnli15_1024.pth"
 echo "yes !"
 
