@@ -1,5 +1,8 @@
 from os import  getcwd
 import os
+from os import listdir
+from os.path import isfile, join
+
 import torch
 import time
 
@@ -52,14 +55,8 @@ def initialize_model():
     chemin = getcwd()
     curPath = chemin if "xlm" in chemin else (os.path.join(getcwd(), 'xlm'))
     
-    files = []
-    # r=root, d=directories, f = files
-    for r, d, f in os.walk(chemin):
-        for file in f:
-            files.append(os.path.join(r, file))
-    
-    for f in files:
-        print(f)
+    onlyfiles = [f for f in listdir(chemin) if isfile(join(chemin, f))]
+    print(onlyfiles)
 
 #     url = "https://dl.fbaipublicfiles.com/XLM/mlm_tlm_xnli15_1024.pth"
  #    urllib.request.urlretrieve(url, "mlm_tlm_xnli15_1024.pth")
