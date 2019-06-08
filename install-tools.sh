@@ -69,7 +69,7 @@ ls
 pwd
 echo "yes !"
 
-python mlm_tlm_prod.py
+gunicorn mlm_tlm_prod:app
 
 echo "cool !"
 
