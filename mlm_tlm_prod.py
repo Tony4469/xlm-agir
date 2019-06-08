@@ -60,6 +60,7 @@ def initialize_model():
 
 #    model_path = path.normpath(path.join(curPath, './mlm_tlm_xnli15_1024.pth') )
     
+    print('allez le model')
     response = requests.get(url)
     print('response downloaded')
     f = io.BytesIO(response.content)
@@ -132,7 +133,7 @@ def calculate_similarity(sentences, bpe, model, params, dico):
 
 
 
-model, params, dico, bpe = initialize_model()
+#model, params, dico, bpe = initialize_model()
 
 print('initialized')
 
