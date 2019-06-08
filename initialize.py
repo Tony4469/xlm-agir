@@ -1,4 +1,5 @@
-from six.moves import urllib
+import requests
+import io
 
 class Reloaded():
     def __init__(self):

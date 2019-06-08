@@ -53,14 +53,15 @@ def initialize_model():
     """
     """
     
-#     print('downloading model')
+    print('downloading model')
 #     url = "https://dl.fbaipublicfiles.com/XLM/mlm_tlm_xnli15_1024.pth"
-# #    urllib.request.urlretrieve(url, "mlm_tlm_xnli15_1024.pth")
+ #    urllib.request.urlretrieve(url, "mlm_tlm_xnli15_1024.pth")
 
-#     chemin = getcwd()
-#     curPath = chemin if "xlm" in chemin else (path.join(getcwd(), 'xlm'))
+    chemin = getcwd()
+    curPath = chemin if "xlm" in chemin else (path.join(getcwd(), 'xlm'))
 
-# #    model_path = path.normpath(path.join(curPath, './mlm_tlm_xnli15_1024.pth') )
+    model_path = path.normpath(path.join(curPath, './mlm_tlm_xnli15_1024.pth') )
+    reloaded = torch.load(model_path)
     
 #     print('allez le model')
 #     response = requests.get(url)
@@ -69,7 +70,7 @@ def initialize_model():
 #     reloaded = torch.load(f)
 #     print('file downloaded')
     
-    reloaded = Reloaded.serve()
+#    reloaded = Reloaded.serve()
     
     params = AttrDict(reloaded['params'])
     print("Supported languages: %s" % ", ".join(params.lang2id.keys()))
