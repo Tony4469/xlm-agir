@@ -69,6 +69,8 @@ def initialize_model():
 #     reloaded = torch.load(f)
 #     print('file downloaded')
     
+    reloaded = Reloaded.serve()
+    
     params = AttrDict(reloaded['params'])
     print("Supported languages: %s" % ", ".join(params.lang2id.keys()))
     
