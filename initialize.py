@@ -12,7 +12,7 @@ def initialize_data():
 
 
 print('initializing download')
-if __name__ == '__init__':
+if __name__ == '__main__':
     initialize_data()
 
 
