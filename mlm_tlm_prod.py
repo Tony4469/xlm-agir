@@ -2,6 +2,7 @@ from os import path, getcwd
 import torch
 import time
 from six.moves import urllib
+import requests
 
 from flask import Flask, request
 from flask_restful import Resource, Api
@@ -47,11 +48,11 @@ def initialize_model():
     """
     """
     
-#    print('downloading model')
-#    url = "https://dl.fbaipublicfiles.com/XLM/mlm_tlm_xnli15_1024.pth"
-#    urllib.request.urlretrieve(url, "mlm_tlm_xnli15_1024.pth")
-#    print('file downloaded')
-    
+    print('downloading model')
+    url = "https://dl.fbaipublicfiles.com/XLM/mlm_tlm_xnli15_1024.pth"
+    urllib.request.urlretrieve(url, "mlm_tlm_xnli15_1024.pth")
+    print('file downloaded')
+
     chemin = getcwd()
     curPath = chemin if "xlm" in chemin else (path.join(getcwd(), 'xlm'))
 
@@ -123,7 +124,7 @@ def calculate_similarity(sentences, bpe, model, params, dico):
 
 
 
-#model, params, dico, bpe = initialize_model()
+model, params, dico, bpe = initialize_model()
 
 print('initialized')
 
