@@ -148,7 +148,7 @@ def calculate_similarity(sentences, bpe, model, params, dico):
 print('initialized')
 
 api.add_resource(XLM, '/xlm') # Route_1
-
+print(__name__)
 if __name__ == '__main__':
     print('launching')
     model, params, dico, bpe = initialize_model()
