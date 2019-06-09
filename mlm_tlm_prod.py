@@ -37,9 +37,9 @@ lechemin = os.path.normpath(os.path.join(getcwd(), './tools/') )
 
 print([x[0] for x in os.walk(lechemin)])
     
-from fastBPE import fastBPE
+import fastBPE
 print(dir(fastBPE))
-bpe = fastBPE.fastBPE(
+bpe = fastBPE(
             path.normpath(path.join(getcwd(), "./codes_xnli_15") ),
             path.normpath(path.join(getcwd(), "./vocab_xnli_15") )  )
 
