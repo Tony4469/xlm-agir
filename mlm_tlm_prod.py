@@ -32,10 +32,10 @@ class XLM(Resource):
     def __init__(self):
         super().__init__()
         print('initializing')
-        self.model=0
-        self.params=0
-        self.dico=0
-        self.bpe=0
+        self.model=None
+        self.params=None
+        self.dico=None
+        self.bpe=None
     
     def dwnld(self):
         print('start dwnld')
@@ -43,9 +43,11 @@ class XLM(Resource):
         urllib.request.urlretrieve(url, "mlm_tlm_xnli15_1024.pth")
         print('end dwnld')
         self.model, self.params, self.dico, self.bpe = initialize_model()
+        self.testeee="123"
         print('all initialized')
     
     def post(self):
+        print(self.testeee)
         print(request.json)
         print(request.json['sentences'])
         t0 = time.process_time()
