@@ -156,7 +156,7 @@ api.add_resource(XLM, '/xlm') # Route_1
 
 if __name__ == '__main__':
     print('dnas main')
-    app.run(port=(process.env.PORT or "5002")
+    app.run(port="5002")
 
 
 
