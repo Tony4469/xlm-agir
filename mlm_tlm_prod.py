@@ -15,7 +15,7 @@ from src.model.transformer import TransformerModel
 
 from torch.nn.modules.distance import CosineSimilarity
 import torch.utils.model_zoo
-import fastBPE
+from fastBPE import fastBPE
 import numpy as np
 
 from rq import Queue
