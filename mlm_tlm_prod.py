@@ -15,7 +15,6 @@ from src.model.transformer import TransformerModel
 
 from torch.nn.modules.distance import CosineSimilarity
 import torch.utils.model_zoo
-#from fastBPE import fastBPE
 import numpy as np
 
 from rq import Queue
@@ -34,6 +33,12 @@ dico=None
 bpe=None
 mot=None
         
+lechemin = os.path.normpath(os.path.join(getcwd(), './tools/') )
+
+print([x[0] for x in os.walk(lechemin)])
+    
+#from fastBPE import fastBPE
+
 class XLM(Resource):
     def __init__(self):
         super().__init__()
