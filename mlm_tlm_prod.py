@@ -37,7 +37,7 @@ lechemin = os.path.normpath(os.path.join(getcwd(), './tools/') )
 
 print([x[0] for x in os.walk(lechemin)])
     
-#from fastBPE import fastBPE
+from tools import fastBPE
 
 class XLM(Resource):
     def __init__(self):
