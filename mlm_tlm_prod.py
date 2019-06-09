@@ -145,10 +145,10 @@ def calculate_similarity(sentences, bpe, model, params, dico):
 
 
 print('initialized')
-q = Queue(connection=conn)
-
-result = q.enqueue(count_words_at_url, 'http://heroku.com')
-print('resultt', result.get_id())
+#q = Queue(connection=conn)
+#
+#result = q.enqueue(count_words_at_url, 'http://heroku.com')
+#print('resultt', result.get_id())
 
 from threading import Timer
 import urllib 
