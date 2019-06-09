@@ -69,8 +69,5 @@ ls
 pwd
 echo "yes !"
 
-gunicorn mlm_tlm_prod:app
-
-echo "cool !"
 
 
