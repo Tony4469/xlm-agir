@@ -150,6 +150,14 @@ q = Queue(connection=conn)
 result = q.enqueue(count_words_at_url, 'http://heroku.com')
 print('resultt', result.get_id())
 
+from threading import Timer
+
+def hello():
+    model, params, dico, bpe = initialize_model()
+    
+t = Timer(90.0, hello)
+t.start() # after 30 seconds, "hello, world" will be printed
+
 print('launching')
 
 #model, params, dico, bpe = initialize_model()
