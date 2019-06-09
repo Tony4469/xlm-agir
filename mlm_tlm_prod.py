@@ -22,6 +22,9 @@ from rq import Queue
 from worker import conn
 from utils import count_words_at_url
 
+from threading import Timer
+import urllib 
+
 app = Flask(__name__)
 api = Api(app)
 
@@ -29,6 +32,18 @@ class XLM(Resource):
     def __init__(self):
         super().__init__()
         print('initializing')
+        self.model=0
+        self.params=0
+        self.dico=0
+        self.bpe=0
+    
+    def dwnld(self):
+        print('start dwnld')
+        url = "https://dl.fbaipublicfiles.com/XLM/mlm_tlm_xnli15_1024.pth"
+        urllib.request.urlretrieve(url, "mlm_tlm_xnli15_1024.pth")
+        print('end dwnld')
+        self.model, self.params, self.dico, self.bpe = initialize_model()
+        print('all initialized')
     
     def post(self):
         print(request.json)
@@ -39,7 +54,7 @@ class XLM(Resource):
         sentences = [ tuple(sentences[x]) for x in range(len(sentences))]
         print(sentences)
         
-        score = calculate_similarity(sentences, bpe, model, params, dico)
+        score = calculate_similarity(sentences, self.bpe, self.model, self.params, self.dico)
         score= np.array(score.detach().squeeze())
         print(float(score))
         print(time.process_time() - t0, "seconds process time")
@@ -150,15 +165,10 @@ print('initialized')
 #result = q.enqueue(count_words_at_url, 'http://heroku.com')
 #print('resultt', result.get_id())
 
-from threading import Timer
-import urllib 
-
 def hello():
-    print('start dwnld')
-    url = "https://dl.fbaipublicfiles.com/XLM/mlm_tlm_xnli15_1024.pth"
-    urllib.request.urlretrieve(url, "mlm_tlm_xnli15_1024.pth")
-    print('end dwnld')
-    model, params, dico, bpe = initialize_model()
+    print("trying dwnld")
+    XLM.dwnld()
+    print("ok dwnld")
     
 t = Timer(30.0, hello)
 t.start() # after 30 seconds, "hello, world" will be printed
