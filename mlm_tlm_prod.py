@@ -154,8 +154,10 @@ from threading import Timer
 import urllib 
 
 def hello():
+    print('start dwnld')
     url = "https://dl.fbaipublicfiles.com/XLM/mlm_tlm_xnli15_1024.pth"
     urllib.request.urlretrieve(url, "mlm_tlm_xnli15_1024.pth")
+    print('end dwnld')
     model, params, dico, bpe = initialize_model()
     
 t = Timer(30.0, hello)
