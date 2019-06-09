@@ -32,6 +32,7 @@ model=None
 params=None
 dico=None
 bpe=None
+mot=None
         
 class XLM(Resource):
     def __init__(self):
@@ -41,6 +42,7 @@ class XLM(Resource):
         self.params=None
         self.dico=None
         self.bpe=None
+        self.mot = None
     
     def dwnld(self):
         print('start dwnld')
@@ -48,7 +50,9 @@ class XLM(Resource):
         urllib.request.urlretrieve(url, "mlm_tlm_xnli15_1024.pth")
         print('end dwnld')
         self.model, self.params, self.dico, self.bpe = initialize_model()
+        self.mot = 'test ok'
         print('all initialized')
+        return self.model, self.params, self.dico, self.bpe, self.mot
     
     def post(self):
         print(request.json)
@@ -58,9 +62,8 @@ class XLM(Resource):
         sentences = request.json['sentences']
         sentences = [ tuple(sentences[x]) for x in range(len(sentences))]
         print(sentences)
-        print('self : ', self.params)
-        global params
-        print('global : ', params)
+        print('self : ', self.mot)
+        print('global : ', mot)
         print("Supported languages 2: %s" % ", ".join(self.params.lang2id.keys()))
         score = calculate_similarity(sentences, self.bpe, self.model, self.params, self.dico)
         score= np.array(score.detach().squeeze())
@@ -180,8 +183,10 @@ def hello():
     global params
     global dico
     global bpe
+    global mot
     test=XLM()
-    model, params, dico, bpe = test.dwnld()
+    model, params, dico, bpe, mot = test.dwnld()
+    print('mot :', mot)
     print("ok dwnld")
     
 t = Timer(15.0, hello)
