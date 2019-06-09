@@ -167,7 +167,8 @@ print('initialized')
 
 def hello():
     print("trying dwnld")
-    XLM.dwnld()
+    test=XLM()
+    test.dwnld()
     print("ok dwnld")
     
 t = Timer(30.0, hello)
