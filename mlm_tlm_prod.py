@@ -153,9 +153,10 @@ print('launching')
 
 #model, params, dico, bpe = initialize_model()
 api.add_resource(XLM, '/xlm') # Route_1
-print(__name__)
+
 if __name__ == '__main__':
-    app.run(port='5002')
+    print('dnas main')
+    app.run(port=(process.env.PORT or "5002")
 
 
 
