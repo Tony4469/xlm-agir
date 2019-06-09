@@ -69,7 +69,7 @@ ls
 pwd
 echo "yes !"
 
-gunicorn mlm_tlm_prod:app
+gunicorn mlm_tlm_prod:app --propagate False
 
 echo "cool !"
 

@@ -144,14 +144,15 @@ def calculate_similarity(sentences, bpe, model, params, dico):
     return cm.forward(tensor[len_sent[0]-1,0], tensor[len_sent[1]-1,1]) 
 
 
-model, params, dico, bpe = initialize_model()
 
 print('initialized')
 
 api.add_resource(XLM, '/xlm') # Route_1
 
 if __name__ == '__main__':
-     app.run(port='5002')
+    print('launching')
+    model, params, dico, bpe = initialize_model()
+    app.run(port='5002')
 
 
 
