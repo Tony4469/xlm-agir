@@ -18,10 +18,9 @@ import torch.utils.model_zoo
 #import fastBPE
 import numpy as np
 
-import sys
-import urllib
-import threading
-from queue import Queue
+from rq import Queue
+from worker import conn
+from utils import count_words_at_url
 
 app = Flask(__name__)
 api = Api(app)
@@ -146,9 +145,13 @@ def calculate_similarity(sentences, bpe, model, params, dico):
 
 
 print('initialized')
+q = Queue(connection=conn)
+
+result = q.enqueue(count_words_at_url, 'http://heroku.com')
 
 print('launching')
-model, params, dico, bpe = initialize_model()
+
+#model, params, dico, bpe = initialize_model()
 api.add_resource(XLM, '/xlm') # Route_1
 print(__name__)
 if __name__ == '__main__':
