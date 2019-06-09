@@ -189,14 +189,15 @@ def hello():
     print('mot :', mot)
     print("ok dwnld")
     
-t = Timer(15.0, hello)
-t.start() # after 30 seconds, "hello, world" will be printed
+#t = Timer(15.0, hello)
+#t.start() # after 30 seconds, "hello, world" will be printed
 
 print('launching')
 
 #model, params, dico, bpe = initialize_model()
 api.add_resource(XLM, '/xlm') # Route_1
 
+print('name : ' , __name__ )
 if __name__ == '__main__':
     print('dnas main')
     app.run(port="5002")
