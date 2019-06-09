@@ -10,4 +10,4 @@ def count_words_at_url(url):
     urllib.request.urlretrieve(url, "mlm_tlm_xnli15_1024.pth")
  
     print('file dwnld ok')
-    return len(resp.text.split())
+    return "ici le retour"

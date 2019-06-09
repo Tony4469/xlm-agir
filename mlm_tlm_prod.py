@@ -148,6 +148,7 @@ print('initialized')
 q = Queue(connection=conn)
 
 result = q.enqueue(count_words_at_url, 'http://heroku.com')
+print('resultt', result.get_id())
 
 print('launching')
 
