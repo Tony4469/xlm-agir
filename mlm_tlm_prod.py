@@ -53,7 +53,8 @@ class XLM(Resource):
         sentences = request.json['sentences']
         sentences = [ tuple(sentences[x]) for x in range(len(sentences))]
         print(sentences)
-        
+        print(self.params)
+        print("Supported languages 2: %s" % ", ".join(self.params.lang2id.keys()))
         score = calculate_similarity(sentences, self.bpe, self.model, self.params, self.dico)
         score= np.array(score.detach().squeeze())
         print(float(score))
