@@ -193,8 +193,8 @@ def hello():
     print('mot :', mot)
     print("ok dwnld")
     
-#t = Timer(15.0, hello)
-#t.start() # after 30 seconds, "hello, world" will be printed
+t = Timer(15.0, hello)
+t.start() # after 30 seconds, "hello, world" will be printed
 
 print('launching')
 
