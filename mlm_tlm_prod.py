@@ -28,6 +28,11 @@ import urllib
 app = Flask(__name__)
 api = Api(app)
 
+model=None
+params=None
+dico=None
+bpe=None
+        
 class XLM(Resource):
     def __init__(self):
         super().__init__()
@@ -53,7 +58,9 @@ class XLM(Resource):
         sentences = request.json['sentences']
         sentences = [ tuple(sentences[x]) for x in range(len(sentences))]
         print(sentences)
-        print(self.params)
+        print('self : ', self.params)
+        global params
+        print('global : ', params)
         print("Supported languages 2: %s" % ", ".join(self.params.lang2id.keys()))
         score = calculate_similarity(sentences, self.bpe, self.model, self.params, self.dico)
         score= np.array(score.detach().squeeze())
@@ -166,10 +173,15 @@ print('initialized')
 #result = q.enqueue(count_words_at_url, 'http://heroku.com')
 #print('resultt', result.get_id())
 
+
 def hello():
     print("trying dwnld")
+    global model
+    global params
+    global dico
+    global bpe
     test=XLM()
-    test.dwnld()
+    model, params, dico, bpe = test.dwnld()
     print("ok dwnld")
     
 t = Timer(15.0, hello)
