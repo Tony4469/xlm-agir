@@ -43,11 +43,9 @@ class XLM(Resource):
         urllib.request.urlretrieve(url, "mlm_tlm_xnli15_1024.pth")
         print('end dwnld')
         self.model, self.params, self.dico, self.bpe = initialize_model()
-        self.testeee="123"
         print('all initialized')
     
     def post(self):
-        print(self.testeee)
         print(request.json)
         print(request.json['sentences'])
         t0 = time.process_time()
@@ -173,7 +171,7 @@ def hello():
     test.dwnld()
     print("ok dwnld")
     
-t = Timer(30.0, hello)
+t = Timer(15.0, hello)
 t.start() # after 30 seconds, "hello, world" will be printed
 
 print('launching')
