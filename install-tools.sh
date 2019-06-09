@@ -35,18 +35,18 @@ if [ ! -d "$MOSES_DIR" ]; then
 fi
 
 # Download fastBPE
-# if [ ! -d "$FASTBPE_DIR" ]; then
-#   echo "Cloning fastBPE from GitHub repository..."
-#   git clone https://github.com/glample/fastBPE
-# fi
+if [ ! -d "$FASTBPE_DIR" ]; then
+  echo "Cloning fastBPE from GitHub repository..."
+  git clone https://github.com/glample/fastBPE
+fi
 
 # Compile fastBPE
-# if [ ! -f "$FASTBPE" ]; then
-#   echo "Compiling fastBPE..."
-  # cd fastBPE
-  # g++ -std=c++11 -pthread -O3 fastBPE/main.cc -IfastBPE -o fast
-  # cd ..
-# fi
+if [ ! -f "$FASTBPE" ]; then
+  echo "Compiling fastBPE..."
+  cd fastBPE
+  g++ -std=c++11 -pthread -O3 fastBPE/main.cc -IfastBPE -o fast
+  cd ..
+fi
 
 # Download Sennrich's tools
 if [ ! -d "$WMT16_SCRIPTS" ]; then

@@ -2,3 +2,4 @@ mlm_tlm_xnli15_1024.pth
 codes_enfr
 vocab_enfr
 .ipynb_checkpoints
+tools/fastBPE
