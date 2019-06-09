@@ -36,8 +36,8 @@ mot=None
 lechemin = os.path.normpath(os.path.join(getcwd(), './tools/') )
 
 print([x[0] for x in os.walk(lechemin)])
-    
-from fastBPE import fastBPE
+
+import fastBPE
 print(dir(fastBPE))
 truc = fastBPE()
 print(dir(truc))
