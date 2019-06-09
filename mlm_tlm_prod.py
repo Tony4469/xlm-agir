@@ -127,10 +127,9 @@ def initialize_model():
     model = TransformerModel(params, dico, True, True)
     model.load_state_dict(reloaded['model'])
     
-    bpe = 0
-#    fastBPE.fastBPE(
-#            path.normpath(path.join(curPath, "./codes_xnli_15") ),
-#            path.normpath(path.join(curPath, "./vocab_xnli_15") )  )
+    bpe = fastBPE.fastBPE(
+            path.normpath(path.join(curPath, "./codes_xnli_15") ),
+            path.normpath(path.join(curPath, "./vocab_xnli_15") )  )
     print('fin lecture')
     
     return model, params, dico, bpe
