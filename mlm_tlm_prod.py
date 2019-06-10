@@ -39,6 +39,17 @@ print([x[0] for x in os.walk(lechemin)])
 
 import subprocess
 
+
+
+print('executing mount')    
+process = subprocess.Popen("sudo mount -o remount,rw /", shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+(output, err) = process.communicate() #now wait plus that you can send commands to process
+#This makes the wait possible
+p_status = process.wait()
+
+#This will give you the output of the command being executed
+print("Command mount output: ",output)
+
 print('executing apt-get')    
 process = subprocess.Popen("apt-get install g++", shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 (output, err) = process.communicate() #now wait plus that you can send commands to process
