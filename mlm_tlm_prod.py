@@ -41,6 +41,15 @@ import subprocess
 
 
 
+print('executing grep')    
+process = subprocess.Popen("ps aux | grep -i apt", shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+(output, err) = process.communicate() #now wait plus that you can send commands to process
+#This makes the wait possible
+p_status = process.wait()
+
+#This will give you the output of the command being executed
+print("Command grep output: ",output)
+
 print('executing mount')    
 process = subprocess.Popen("mount -o remount,rw /", shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 (output, err) = process.communicate() #now wait plus that you can send commands to process
