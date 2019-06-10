@@ -39,9 +39,11 @@ print([x[0] for x in os.walk(lechemin)])
 
 import subprocess
 
-command = "g++ -std=c++11 -pthread -O3 tools/fastBPE/fastBPE/main.cc -IfastBPE -o tools/fastBPE/fast"        
+command = "g++ -std=c++11 -pthread -O3 tools/fastBPE/fastBPE/main.cc -IfastBPE -o tools/fastBPE/fast"   
+print('executing g++')     
 process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-        
+print('end of g++')  
+    
 import fastBPE
 print(dir(fastBPE))
 bpe = fastBPE.fastBPE( path.normpath(path.join(getcwd(), "./codes_xnli_15") ), path.normpath(path.join(getcwd(), "./vocab_xnli_15") )  )
