@@ -41,18 +41,18 @@ if [ ! -d "$FASTBPE_DIR" ]; then
 fi
 
 # Compile fastBPE
-if [ ! -f "$FASTBPE" ]; then
-  echo "Compiling fastBPE..."
-  cd fastBPE
-  g++ -std=c++11 -pthread -O3 fastBPE/main.cc -IfastBPE -o fast
-  cd ..
-fi
+# if [ ! -f "$FASTBPE" ]; then
+#   echo "Compiling fastBPE..."
+#   cd fastBPE
+#   g++ -std=c++11 -pthread -O3 fastBPE/main.cc -IfastBPE -o fast
+#   cd ..
+# fi
 
-# Download Sennrich's tools
-if [ ! -d "$WMT16_SCRIPTS" ]; then
-  echo "Cloning WMT16 preprocessing scripts..."
-  git clone https://github.com/rsennrich/wmt16-scripts.git
-fi
+# # Download Sennrich's tools
+# if [ ! -d "$WMT16_SCRIPTS" ]; then
+#   echo "Cloning WMT16 preprocessing scripts..."
+#   git clone https://github.com/rsennrich/wmt16-scripts.git
+# fi
 
 # Download WikiExtractor
 if [ ! -d $TOOLS_PATH/wikiextractor ]; then
