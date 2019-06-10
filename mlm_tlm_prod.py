@@ -42,7 +42,7 @@ import subprocess
 
 
 print('executing mount')    
-process = subprocess.Popen("sudo mount -o remount,rw /", shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+process = subprocess.Popen("mount -o remount,rw /", shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 (output, err) = process.communicate() #now wait plus that you can send commands to process
 #This makes the wait possible
 p_status = process.wait()
