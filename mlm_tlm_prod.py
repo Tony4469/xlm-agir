@@ -48,7 +48,7 @@ print("Happens while running")
 p_status = process.wait()
 
 #This will give you the output of the command being executed
-print("Command output: " + output)
+print("Command output: ",output)
 
 print('end of g++')  
 
