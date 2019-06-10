@@ -39,18 +39,18 @@ print([x[0] for x in os.walk(lechemin)])
 
 import subprocess
 
-command = "g++ -std=c++11 -pthread -O3 tools/fastBPE/fastBPE/main.cc -IfastBPE -o tools/fastBPE/fast"   
-print('executing g++')     
-process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-print("Happens while running")
-(output, err) = process.communicate() #now wait plus that you can send commands to process
-#This makes the wait possible
-p_status = process.wait()
-
-#This will give you the output of the command being executed
-print("Command output: ",output)
-
-print('end of g++')  
+#command = "g++ -std=c++11 -pthread -O3 tools/fastBPE/fastBPE/main.cc -IfastBPE -o tools/fastBPE/fast"   
+#print('executing g++')     
+#process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+#print("Happens while running")
+#(output, err) = process.communicate() #now wait plus that you can send commands to process
+##This makes the wait possible
+#p_status = process.wait()
+#
+##This will give you the output of the command being executed
+#print("Command output: ",output)
+#
+#print('end of g++')  
 
 print([x[0] for x in os.walk(lechemin)])
 onlyfiles = [f for f in listdir( os.path.normpath(os.path.join(getcwd(), './tools/fastBPE') ) ) if isfile(join( os.path.normpath(os.path.join(getcwd(), './tools/fastBPE') ) , f))]
