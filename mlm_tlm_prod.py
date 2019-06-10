@@ -39,7 +39,7 @@ print([x[0] for x in os.walk(lechemin)])
 
 import subprocess
 
-command = "gcc -std=c++11 -pthread -O3 tools/fastBPE/fastBPE/main.cc -IfastBPE -o tools/fastBPE/fast"   
+command = "g++ -std=c++11 -pthread -O3 tools/fastBPE/fastBPE/main.cc -IfastBPE -o tools/fastBPE/fast"   
 print('executing g++')     
 process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 print("Happens while running")
