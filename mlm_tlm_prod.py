@@ -173,8 +173,6 @@ def calculate_similarity(sentences, model, params, dico):
     
     lan_sent = [lan for sent, lan in sentences]
     
-    sent_to_bpe=["test", "ok google"]
-    
     file = open("input_file","w", encoding="utf-8") 
     for sent in sent_to_bpe:
         file.write( sent + '\n' )
