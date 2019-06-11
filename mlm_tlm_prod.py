@@ -41,12 +41,16 @@ import subprocess
 
 
 print('executing fast')    
-process = subprocess.Popen("./tools/fastBPE/fast", shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+process = subprocess.Popen("./tools/fastBPE/fast applybpe test1 test_input codes_enfr", shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 (output, err) = process.communicate() #now wait plus that you can send commands to process
 #This makes the wait possible
 p_status = process.wait()
 #This will give you the output of the command being executed
 print("Command fast output: ",output)
+
+print("reading file")
+f = open("test1", "r")
+print(f.read())
 
 print([x[0] for x in os.walk(lechemin)])
 onlyfiles = [f for f in listdir( os.path.normpath(os.path.join(getcwd(), './tools/fastBPE') ) ) if isfile(join( os.path.normpath(os.path.join(getcwd(), './tools/fastBPE') ) , f))]
