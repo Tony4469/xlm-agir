@@ -41,7 +41,7 @@ import subprocess
 
 
 print('executing fast')    
-process = subprocess.Popen("./tools/fastBPE/fast applybpe test1 test_input codes_enfr", shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+process = subprocess.Popen("./tools/fastBPE/fast applybpe test1 test_input codes_xnli_15", shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 (output, err) = process.communicate() #now wait plus that you can send commands to process
 #This makes the wait possible
 p_status = process.wait()
