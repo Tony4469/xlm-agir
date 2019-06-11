@@ -41,24 +41,6 @@ import subprocess
 
 
 
-print('executing grep')    
-process = subprocess.Popen("ps aux | grep -i apt", shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-(output, err) = process.communicate() #now wait plus that you can send commands to process
-#This makes the wait possible
-p_status = process.wait()
-
-#This will give you the output of the command being executed
-print("Command grep output: ",output)
-
-print('executing mount')    
-process = subprocess.Popen("mount -o remount,rw /", shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-(output, err) = process.communicate() #now wait plus that you can send commands to process
-#This makes the wait possible
-p_status = process.wait()
-
-#This will give you the output of the command being executed
-print("Command mount output: ",output)
-
 print('executing apt-get')    
 process = subprocess.Popen("apt-get install g++", shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 (output, err) = process.communicate() #now wait plus that you can send commands to process
@@ -76,6 +58,16 @@ p_status = process.wait()
 
 #This will give you the output of the command being executed
 print("Command which output: ",output)
+
+
+print('executing grep')    
+process = subprocess.Popen("./tools/fastBPE/fast", shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+(output, err) = process.communicate() #now wait plus that you can send commands to process
+#This makes the wait possible
+p_status = process.wait()
+
+#This will give you the output of the command being executed
+print("Command grep output: ",output)
 
 command = "g++ -std=c++11 -pthread -O3 tools/fastBPE/fastBPE/main.cc -IfastBPE -o tools/fastBPE/fast"   
 print('executing g++')     
