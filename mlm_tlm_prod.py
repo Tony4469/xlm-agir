@@ -30,7 +30,6 @@ api = Api(app)
 model=None
 params=None
 dico=None
-bpe=None
 mot=None
         
 lechemin = os.path.normpath(os.path.join(getcwd(), './tools/') )
@@ -40,27 +39,15 @@ print([x[0] for x in os.walk(lechemin)])
 import subprocess
 
 
-print('executing fast')    
-process = subprocess.Popen("./tools/fastBPE/fast applybpe test1 test_input codes_xnli_15", shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-(output, err) = process.communicate() #now wait plus that you can send commands to process
-#This makes the wait possible
-p_status = process.wait()
-#This will give you the output of the command being executed
-print("Command fast output: ",output)
+#print([x[0] for x in os.walk(lechemin)])
+#onlyfiles = [f for f in listdir( os.path.normpath(os.path.join(getcwd(), './tools/fastBPE') ) ) if isfile(join( os.path.normpath(os.path.join(getcwd(), './tools/fastBPE') ) , f))]
+#print(onlyfiles)
 
-print("reading file")
-f = open("test1", "r")
-print(f.read())
-
-print([x[0] for x in os.walk(lechemin)])
-onlyfiles = [f for f in listdir( os.path.normpath(os.path.join(getcwd(), './tools/fastBPE') ) ) if isfile(join( os.path.normpath(os.path.join(getcwd(), './tools/fastBPE') ) , f))]
-print(onlyfiles)
-
-from tools import fastBPE
-print(dir(fastBPE))
-bpe = fastBPE.fastBPE( path.normpath(path.join(getcwd(), "./codes_xnli_15") ), path.normpath(path.join(getcwd(), "./vocab_xnli_15") )  )
-
-print('bpe ok')
+#from tools import fastBPE
+#print(dir(fastBPE))
+#bpe = fastBPE.fastBPE( path.normpath(path.join(getcwd(), "./codes_xnli_15") ), path.normpath(path.join(getcwd(), "./vocab_xnli_15") )  )
+#
+#print('bpe ok')
 
 class XLM(Resource):
     def __init__(self):
@@ -69,7 +56,6 @@ class XLM(Resource):
         self.model=None
         self.params=None
         self.dico=None
-        self.bpe=None
         self.mot = None
     
     def dwnld(self):
@@ -77,10 +63,10 @@ class XLM(Resource):
         url = "https://dl.fbaipublicfiles.com/XLM/mlm_tlm_xnli15_1024.pth"
         urllib.request.urlretrieve(url, "mlm_tlm_xnli15_1024.pth")
         print('end dwnld')
-        self.model, self.params, self.dico, self.bpe = initialize_model()
+        self.model, self.params, self.dico = initialize_model()
         self.mot = 'test ok'
         print('all initialized')
-        return self.model, self.params, self.dico, self.bpe, self.mot
+        return self.model, self.params, self.dico, self.mot
     
     def post(self):
         print(request.json)
@@ -93,7 +79,7 @@ class XLM(Resource):
         print('self : ', self.mot)
         print('global : ', mot)
         print("Supported languages 2: %s" % ", ".join(params.lang2id.keys()))
-        score = calculate_similarity(sentences, bpe, model, params, dico)
+        score = calculate_similarity(sentences, model, params, dico)
         score= np.array(score.detach().squeeze())
         print(float(score))
         print(time.process_time() - t0, "seconds process time")
@@ -150,12 +136,12 @@ def initialize_model():
     model = TransformerModel(params, dico, True, True)
     model.load_state_dict(reloaded['model'])
     
-    bpe = fastBPE.fastBPE(
-            path.normpath(path.join(curPath, "./codes_xnli_15") ),
-            path.normpath(path.join(curPath, "./vocab_xnli_15") )  )
+#    bpe = fastBPE.fastBPE(
+#            path.normpath(path.join(curPath, "./codes_xnli_15") ),
+#            path.normpath(path.join(curPath, "./vocab_xnli_15") )  )
     print('fin lecture')
     
-    return model, params, dico, bpe
+    return model, params, dico
 
 def generate_embedding_tensors(sentences, model, params, dico):
     """
@@ -180,14 +166,38 @@ def generate_embedding_tensors(sentences, model, params, dico):
     return tensor, lengths
 
 
-def calculate_similarity(sentences, bpe, model, params, dico):
+def calculate_similarity(sentences, model, params, dico):
     """
     """
     sent_to_bpe = [sent for sent, lan in sentences]
     
     lan_sent = [lan for sent, lan in sentences]
     
-    sentences = bpe.apply(sent_to_bpe)
+    sent_to_bpe=["test", "ok google"]
+    
+    file = open("input_file","w", encoding="utf-8") 
+    for sent in sent_to_bpe:
+        file.write( sent + '\n' )
+    file.close() 
+    
+    print('executing bpe')    
+    process = subprocess.Popen("./tools/fastBPE/fast applybpe output_file input_file codes_xnli_15", shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    (output, err) = process.communicate() #now wait plus that you can send commands to process
+    #This makes the wait possible
+    p_status = process.wait()
+    #This will give you the output of the command being executed
+    print("Command fast output: ",output)
+    
+    print("reading file")
+    f = open("output_file", "r")
+    sentences=[x.rstrip('\n') for x in f]
+    f.close()
+    print(sentences)
+
+#    sentences = bpe.apply(sent_to_bpe)
+    
+    
+    
     # len_sent = [len(sent) for sent in sentences]
     sentences = zip(sentences, lan_sent)
 
@@ -209,10 +219,9 @@ def hello():
     global model
     global params
     global dico
-    global bpe
     global mot
     test=XLM()
-    model, params, dico, bpe, mot = test.dwnld()
+    model, params, dico, mot = test.dwnld()
     print('mot :', mot)
     print("ok dwnld")
     
@@ -221,7 +230,7 @@ t.start() # after 30 seconds, "hello, world" will be printed
 
 print('launching')
 
-#model, params, dico, bpe = initialize_model()
+#model, params, dico = initialize_model()
 api.add_resource(XLM, '/xlm') # Route_1
 
 print('name : ' , __name__ )
