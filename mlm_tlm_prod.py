@@ -52,7 +52,7 @@ print([x[0] for x in os.walk(lechemin)])
 onlyfiles = [f for f in listdir( os.path.normpath(os.path.join(getcwd(), './tools/fastBPE') ) ) if isfile(join( os.path.normpath(os.path.join(getcwd(), './tools/fastBPE') ) , f))]
 print(onlyfiles)
 
-import fastBPE
+from tools import fastBPE
 print(dir(fastBPE))
 bpe = fastBPE.fastBPE( path.normpath(path.join(getcwd(), "./codes_xnli_15") ), path.normpath(path.join(getcwd(), "./vocab_xnli_15") )  )
 
