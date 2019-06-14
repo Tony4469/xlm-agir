@@ -165,7 +165,6 @@ class MultiHeadAttention(nn.Module):
         self.v_lin = Linear(dim, dim)
         self.out_lin = Linear(dim, dim)
         self.training= False #Souf
-        print('initialise multihead attention')
 
     def forward(self, input, mask, kv=None, cache=None):
         """

@@ -32,9 +32,8 @@ params=None
 dico=None
 mot=None
         
-lechemin = os.path.normpath(os.path.join(getcwd(), './tools/') )
-
-print([x[0] for x in os.walk(lechemin)])
+#lechemin = os.path.normpath(os.path.join(getcwd(), './tools/') )
+#print([x[0] for x in os.walk(lechemin)])
 
 import subprocess
 
@@ -49,6 +48,11 @@ import subprocess
 #
 #print('bpe ok')
 
+#On définit notre environnement de travail :
+local=False
+if os.environ["TERM_PROGRAM"] == "Apple_Terminal":
+    local=True
+    
 class XLM(Resource):
     def __init__(self):
         super().__init__()
@@ -59,10 +63,14 @@ class XLM(Resource):
         self.mot = None
     
     def dwnld(self):
-        print('start dwnld')
-        url = "https://dl.fbaipublicfiles.com/XLM/mlm_tlm_xnli15_1024.pth"
-        urllib.request.urlretrieve(url, "mlm_tlm_xnli15_1024.pth")
-        print('end dwnld')
+        print("ici")
+        if os.path.isfile("mlm_tlm_xnli15_1024.pth"):
+            print("model already exists")
+        else:
+            print('start dwnld')
+            url = "https://dl.fbaipublicfiles.com/XLM/mlm_tlm_xnli15_1024.pth"
+            urllib.request.urlretrieve(url, "mlm_tlm_xnli15_1024.pth")
+            print('end dwnld')
         self.model, self.params, self.dico = initialize_model()
         self.mot = 'test ok'
         print('all initialized')
@@ -102,10 +110,7 @@ def initialize_model():
     onlyfiles = [f for f in listdir(chemin) if isfile(join(chemin, f))]
     print(onlyfiles)
 
-#     url = "https://dl.fbaipublicfiles.com/XLM/mlm_tlm_xnli15_1024.pth"
- #    urllib.request.urlretrieve(url, "mlm_tlm_xnli15_1024.pth")
-
-
+    print(os.path.normpath(os.path.join(getcwd(), './mlm_tlm_xnli15_1024.pth') ))
     model_path = os.path.normpath(os.path.join(getcwd(), './mlm_tlm_xnli15_1024.pth') )
     reloaded = torch.load(model_path)
     
@@ -129,8 +134,6 @@ def initialize_model():
     params.pad_index = dico.index(PAD_WORD)
     params.unk_index = dico.index(UNK_WORD)
     params.mask_index = dico.index(MASK_WORD)
-    
-    #params.attention_dropout = 1 #A ENLEVER
     
     # build model / reload weights
     model = TransformerModel(params, dico, True, True)
@@ -178,8 +181,16 @@ def calculate_similarity(sentences, model, params, dico):
         file.write( sent + '\n' )
     file.close() 
     
+    print('tokenizing and lowercasing data')    
+    process = subprocess.Popen(".cat input_file | tools/tokenize.sh fr | python tools/lowercase_and_remove_accent.py > prep_input", shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    (output, err) = process.communicate() #now wait plus that you can send commands to process
+    #This makes the wait possible
+    p_status = process.wait()
+    #This will give you the output of the command being executed
+    print("Command tokenize output: ",output)
+    
     print('executing bpe')    
-    process = subprocess.Popen("./tools/fastBPE/fast applybpe output_file input_file codes_xnli_15", shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    process = subprocess.Popen("./tools/fastBPE" + ("_local" if local else "") + "/fast applybpe output_file prep_input codes_xnli_15", shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     (output, err) = process.communicate() #now wait plus that you can send commands to process
     #This makes the wait possible
     p_status = process.wait()
@@ -193,7 +204,6 @@ def calculate_similarity(sentences, model, params, dico):
     print(sentences)
 
 #    sentences = bpe.apply(sent_to_bpe)
-    
     
     
     # len_sent = [len(sent) for sent in sentences]

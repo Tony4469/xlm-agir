@@ -191,6 +191,7 @@ class Dictionary(object):
             indexed = []
             for w in s:
                 word_id = dico.index(w, no_unk=False)
+                print('ici', w)
                 # if we find a special word which is not an unknown word, skip the sentence
                 if 0 <= word_id < 4 + SPECIAL_WORDS and word_id != 3:
                     logger.warning('Found unexpected special word "%s" (%i)!!' % (w, word_id))
